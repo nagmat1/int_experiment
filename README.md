@@ -71,3 +71,4 @@ listening on enp4s0f1, link-type EN10MB (Ethernet), capture size 262144 bytes
 ```
 We are sniffing on ```  enp4s0f1 ``` , cpu_port 
 
+The location of scraping tool for ETHERNET packets : ``` dtn3:~/scrap_c002 ```
