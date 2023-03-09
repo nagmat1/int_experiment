@@ -11,7 +11,11 @@ port 80 is open.
 grep -w 5001 /etc/services
 ```
 
+Port 5001 is closed. 
 The port was not open. Open the port on both hosts: 
+
+# Open the ports in linux ubuntu : 
+
 ```
 sudo ufw allow 5001/tcp
 ```
