@@ -46,3 +46,6 @@ Connecting to host 134.197.113.78, port 5201
 iperf Done.
 ```
 
+# Conclusion 
+
+If ARP protocol is not implemented than ```iperf``` and ```ping``` will not work. 
