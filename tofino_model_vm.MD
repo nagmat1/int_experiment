@@ -32,7 +32,7 @@ Do you want to write it to a file? [y/N]: Y
 Please provide the profile filename - [Example:profiles/my-profile.yaml]: ./profiles/vm_model.yaml
 Do you want to continue building SDE? [y/N]: N
 ```
-7.  ```./p4studio profile describe ./profiles/vm_model.yaml```
+6.  ```./p4studio profile describe ./profiles/vm_model.yaml```
 
 ```
 Loading profile from ./profiles/vm_model.yaml file...
@@ -58,7 +58,7 @@ p4studio dependencies install --source-packages bridge,libcli,thrift,grpc --jobs
 p4studio configure tofino switch '^tofino2m' '^tofino2' '^tofino2h'
 p4studio build --jobs N p4-16-programs x1_tofino
 ```
-9.  ```vim ./profiles/vm_model.yaml ``` Add tofino2 to the file. 
+7.  ```vim ./profiles/vm_model.yaml ``` Add tofino2 to the file. 
 ```
 global-options: {}
 features:
@@ -73,10 +73,10 @@ architectures:
 
 # Build the SDE 
 
-11.  Now, we can build the SDE using: ``` ./p4studio profile apply ./profiles/vm_model.yaml ``` 
-12.  We can check logs in ``` ./mysde/p4studio/logs``` folder. 
-13.  ```./run_tofino_model.sh -p diag --int-port-loop 5 ``` 
-14. ```./run_switchd.sh -p diag```
+8.  Now, we can build the SDE using: ``` ./p4studio profile apply ./profiles/vm_model.yaml ``` 
+9.  We can check logs in ``` ./mysde/p4studio/logs``` folder. 
+10.  ```./run_tofino_model.sh -p diag --int-port-loop 5 ``` 
+11. ```./run_switchd.sh -p diag```
 
 ```
 bfshell> ucliStarting UCLI from bf-shell 
@@ -142,9 +142,10 @@ bf-sde> diags help
 
 Cannot read termcap database;
 using dumb terminal settings.
-bf-sde>  ```
+bf-sde>  
+```
 
-14.  ```diags snake-setup 0 0,1,256,257 3```
+13.  ```diags snake-setup 0 0,1,256,257 3```
 
 ```Allocated handle 2 on dev 0
 dst-override-add: ig_port 320, dst-port 0, tcp (1024-2047), pri 0 
@@ -161,8 +162,9 @@ dst-override-add: ig_port 257, dst-port 256, tcp (33792-34815), pri 500
 dst-override-add: ig_port 320, dst-port 257, tcp (33792-34815), pri 0 
 dst-override-add: ig_port 257, dst-port 0, tcp (1024-2047), pri 500 
 Snake test setup success 
-Snake Session Handle: 2 ```
-15. ```diags snake-start 1 1 200 1``` 
+Snake Session Handle: 2 
+```
+14. ```diags snake-start 1 1 200 1``` 
 
 ``` Pkt Tx API invoked for dev 0 
 diag:: Snake test start <ses========= Successfully sent pkt with id 1000000000000 from CPU to port 0 of size 200 in session 1 tcp-dst-port 0 pkt-num 1 =========
@@ -170,7 +172,7 @@ s-hdl=1> <num-pkt========== Successfully sent pkt with id 1010100000001 from CPU
 1> <pkt-size=200> <bidir=1>
 Snake test started 
 ```
-16. ``` diags snake-stop 1 ```  
+15. ``` diags snake-stop 1 ```  
 ```
 Snake Stop for tcp range (0 - 350) 
 didst-override-add: ig_port 257, dst-port 320, tcp (0-350), pri 0 
@@ -201,7 +203,7 @@ Snake Stop DONE
 Test stop success 
 ```
 
-18. ``` diags snake-status 1 ```
+16. ``` diags snake-status 1 ```
 
 ```
 diag:: Snake Test status <sess-hdl=1>
@@ -214,9 +216,9 @@ No of Tx packet completions: 2
 
 # Checking the port counters. 
 
-20. ```pm```
+17. ```pm```
 ```bf-sde.pm>   ``` 
-22. ```show -p 1/-```
+18. ```show -p 1/-```
 ```
 -----+----+---+----+-------+----+--+--+---+---+---+--------+----------------+----------------+-
 PORT |MAC |D_P|P/PT|SPEED  |FEC |AN|KR|RDY|ADM|OPR|LPBK    |FRAMES RX       |FRAMES TX       |E
@@ -227,7 +229,7 @@ PORT |MAC |D_P|P/PT|SPEED  |FEC |AN|KR|RDY|ADM|OPR|LPBK    |FRAMES RX       |FRA
 1/3  |15/3|  3|0/ 3|10G    |NONE|Au|Au|YES|DIS|DWN|  NONE  |               0|               0| 
 ```
 
-24. ``` show -p 33/-```
+19. ``` show -p 33/-```
 ```
 -----+----+---+----+-------+----+--+--+---+---+---+--------+----------------+----------------+-
 PORT |MAC |D_P|P/PT|SPEED  |FEC |AN|KR|RDY|ADM|OPR|LPBK    |FRAMES RX       |FRAMES TX       |E
@@ -240,7 +242,7 @@ PORT |MAC |D_P|P/PT|SPEED  |FEC |AN|KR|RDY|ADM|OPR|LPBK    |FRAMES RX       |FRA
 
 We can also retriev more detailed SNMP counters using : 
 
-26. ``` show -d -p 1/-```
+20. ``` show -d -p 1/-```
 ```
 ================================================================================
              1/0 : Port Identifier
@@ -266,7 +268,7 @@ We can also retriev more detailed SNMP counters using :
                0 : FramesReceivedwithBroadcastAddresses
                ...
 ```
-
+21. 
 ```
 bf-sde.pm> 
 bf-sde.pm> ..
@@ -276,7 +278,7 @@ bf-sde>
 
 # Cleaning up 
 
-28. ```diags snake-cleanup 1 ```
+22. ```diags snake-cleanup 1 ```
 ```
 dst-override-del: handle 4 
 diag:: Snake Test cleanup <sess-hdl=1>
@@ -293,9 +295,3 @@ Cleaning up pkt database for session 1
 Freed handle 1 on dev 0
 Test cleanup success 
 ``` 
-
-
-
-
-
- 
