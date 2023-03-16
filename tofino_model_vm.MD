@@ -3,7 +3,7 @@
 To build tofino model SDE on a virtual machine : 
 
 1. Create a fresh VM with Ubuntu Linux(either 16.04 or 18.04) right on your PC or MAC. 
-2. Crea VM based on it, copy the SDE tarball in there and do the build. 
+2. Create VM based on it, copy the SDE tarball in there and do the build. 
 3. ```tar xzvf ~/Downloads/bf-sde-x.y.z.tgz```
 4. ```cd bf-sde-x.y.z.tgz```
 5. ```./p4studio interactive``` 
