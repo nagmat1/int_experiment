@@ -26,7 +26,8 @@ Build Dir: /home/nnazarov/tof_model/mysde/build/p4-build/tofino/simple_l3
 No of Veths is 64
 Adding CPU veth
 ```
-3. ``` ./run_tofino_model.sh -p simple_l3 ``` 
+3. Run Tofino model on Virtual Machine : 
+``` ./run_tofino_model.sh -p simple_l3 ``` 
 
 ```
 Using SDE /home/nnazarov/tof_model/mysde
@@ -72,6 +73,126 @@ Waiting for incoming connections...
 CLI listening on port 8000
 ```
 
-5. 
-6.  asdf 
-7.  
+4.Load the P4 program onto the switch : 
+```./run_switchd.sh -p simple_l3``` 
+
+```
+Using SDE /home/nnazarov/tof_model/mysde
+Using SDE_INSTALL /home/nnazarov/tof_model/mysde/install
+Setting up DMA Memory Pool
+[sudo] password for nnazarov: 
+Using TARGET_CONFIG_FILE /home/nnazarov/tof_model/mysde/install/share/p4/targets/tofino/simple_l3.conf
+Using PATH /home/nnazarov/tof_model/mysde/install/bin:/home/nnazarov/tof_model/mysde/install/bin:/home/nnazarov/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+Using LD_LIBRARY_PATH /usr/local/lib:/home/nnazarov/tof_model/mysde/install/lib:
+bf_sysfs_fname /sys/class/bf/bf0/device/dev_add
+Install dir: /home/nnazarov/tof_model/mysde/install (0x557938898810)
+bf_switchd: system services initialized
+bf_switchd: loading conf_file /home/nnazarov/tof_model/mysde/install/share/p4/targets/tofino/simple_l3.conf...
+bf_switchd: processing device configuration...
+Configuration for dev_id 0
+  Family        : tofino
+  pci_sysfs_str : /sys/devices/pci0000:00/0000:00:03.0/0000:05:00.0
+  pci_domain    : 0
+  pci_bus       : 5
+  pci_fn        : 0
+  pci_dev       : 0
+  pci_int_mode  : 1
+  sbus_master_fw: /home/nnazarov/tof_model/mysde/install/
+  pcie_fw       : /home/nnazarov/tof_model/mysde/install/
+  serdes_fw     : /home/nnazarov/tof_model/mysde/install/
+  sds_fw_path   : /home/nnazarov/tof_model/mysde/install/share/tofino_sds_fw/avago/firmware
+  microp_fw_path: 
+bf_switchd: processing P4 configuration...
+P4 profile for dev_id 0
+num P4 programs 1
+  p4_name: simple_l3
+  p4_pipeline_name: pipe
+    libpd: 
+    libpdthrift: 
+    context: /home/nnazarov/tof_model/mysde/install/share/tofinopd/simple_l3/pipe/context.json
+    config: /home/nnazarov/tof_model/mysde/install/share/tofinopd/simple_l3/pipe/tofino.bin
+  Pipes in scope [0 1 2 3 ]
+  diag: 
+  accton diag: 
+  Agent[0]: /home/nnazarov/tof_model/mysde/install/lib/libpltfm_mgr.so
+  non_default_port_ppgs: 0
+ ... 
+ 
+```
+5. Load the bfrt python scripts to the p4 program : 
+```./run_bfshell.sh -b ~/tof_model/exercises/01_simple_l3/setup.py ```
+```
+Using SDE /home/nnazarov/tof_model/mysde
+Using SDE_INSTALL /home/nnazarov/tof_model/mysde/install
+Connecting to localhost port 7777 to check status on these devices: [0]
+Waiting for device 0 to be ready
+/home/nnazarov/tof_model/mysde/install/bin/bfshell /home/nnazarov/tof_model/exercises/01_simple_l3/setup.py
+bfrt_python /home/nnazarov/tof_model/exercises/01_simple_l3/setup.py
+exit
+
+        ********************************************
+        *      WARNING: Authorised Access Only     *
+        ********************************************
+    
+
+bfshell> bfrt_python /home/nnazarov/tof_model/exercises/01_simple_l3/setup.py
+cwd : /home/nnazarov/tof_model/mysde
+
+Devices found :  [0]
+We've found 1 p4 programs for device 0:
+simple_l3
+Creating tree for dev 0 and program simple_l3
+
+/home/nnazarov/tof_model/mysde/install/lib/python3.8/site-packages/IPython/core/history.py:226: UserWarning: IPython History requires SQLite, your history will not be saved
+  warn("IPython History requires SQLite, your history will not be saved")
+Python 3.8.10 (default, Mar 15 2023, 16:30:07) 
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.18.1 -- An enhanced Interactive Python. Type '?' for help.
+
+******************* PROGAMMING RESULTS *****************
+
+Table ipv4_host:
+----- ipv4_host Dump Start -----
+Default Entry:
+Entry data (action : NoAction):
+
+pipe.Ingress.ipv4_host entries for action: Ingress.send
+hdr.ipv4.dst_addr    port
+-------------------  ------
+0xC0A80101           0x01
+0xC0A80102           0x02
+0xC0A801FE           0x40
+
+
+pipe.Ingress.ipv4_host entries for action: Ingress.drop
+hdr.ipv4.dst_addr
+-------------------
+0xC0A80103
+
+----- ipv4_host Dump End -----
+Table ipv4_lpm:
+----- ipv4_lpm Dump Start -----
+Default Entry:
+Entry data (action : Ingress.send):
+    port                           : 0x40
+
+pipe.Ingress.ipv4_lpm entries for action: Ingress.send
+hdr.ipv4.dst_addr             port
+----------------------------  ------
+('0xC0A80100', '0x00000018')  0x01
+('0x00000000', '0x00000000')  0x40
+
+
+pipe.Ingress.ipv4_lpm entries for action: Ingress.drop
+hdr.ipv4.dst_addr
+----------------------------
+('0xC0A80000', '0x00000010')
+
+
+----- ipv4_lpm Dump End -----
+bfshell> exit
+```
+
+```./run_bfshell.sh -b ~/tof_model/exercises/01_simple_l3/setup.py -i``` #-i flag :Execute a prepared python script and continue interactively. 
+
+6.  
