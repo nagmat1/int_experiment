@@ -1,4 +1,4 @@
-# Compile the p4 program in intel vm
+# Compile the p4 program in intel vm ICA 1111
 
 1. ``` ./tools/p4_build.sh -p  ~/tof_model/exercises/01_simple_l3/simple_l3.p4 ```
 ```
